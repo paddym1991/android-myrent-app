@@ -1,4 +1,4 @@
-package org.wit.myrent;
+package org.wit.myrent.models;
 
 import java.util.Random;
 
