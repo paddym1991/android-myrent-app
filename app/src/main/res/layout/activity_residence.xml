@@ -2,10 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
     android:orientation="vertical">
 
+    <!--Location Separator-->
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
@@ -13,12 +12,17 @@
         android:text="@string/location"
         style="?android:listSeparatorTextViewStyle"/>       <!--style the TextView with a list separator-->
 
+    <!--Geolocation Separator-->
     <EditText
         android:id="@+id/geolocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/geolocation_hint"/>
+        android:hint="@string/geolocation_hint"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"/>
+        <requestFocus/>
 
+    <!--Staus Separator-->
     <TextView
         android:id="@+id/statusLabel"
         android:layout_width="match_parent"
@@ -29,6 +33,17 @@
     <Button
         android:id="@+id/registration_date"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"/>
+
+    <CheckBox
+        android:id="@+id/isrented"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="@string/isrented"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"/>
 
 </LinearLayout>
