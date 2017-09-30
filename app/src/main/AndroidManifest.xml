@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.MyRentActivity">
+            android:name=".activities.ResidenceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

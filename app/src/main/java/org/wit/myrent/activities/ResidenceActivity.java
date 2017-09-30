@@ -9,7 +9,7 @@ import android.widget.EditText;
 import org.wit.myrent.R;
 import org.wit.myrent.models.Residence;
 
-public class MyRentActivity extends AppCompatActivity implements TextWatcher {
+public class ResidenceActivity extends AppCompatActivity implements TextWatcher {
 
     private EditText geolocation;
     private Residence residence;
@@ -17,7 +17,7 @@ public class MyRentActivity extends AppCompatActivity implements TextWatcher {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_myrent);
+        setContentView(R.layout.activity_residence);
 
         geolocation = (EditText) findViewById(R.id.geolocation);
         residence = new Residence();
