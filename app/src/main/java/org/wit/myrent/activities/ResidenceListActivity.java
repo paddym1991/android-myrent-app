@@ -55,8 +55,10 @@ public class ResidenceListActivity extends Activity implements AdapterView.OnIte
     //interface method
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Residence residence = adapter.getItem(position);
         Intent intent = new Intent(this, ResidenceActivity.class);
-        startActivity(intent);
+        intent.putExtra("RESIDENCE_ID", residence.id);      //residence.id represents the residence the user clicked on (by position)
+        startActivity(intent);                              //Its is obtained from the prtfolio and then passed to the intent as an 'extra' data item
     }
 }
 
