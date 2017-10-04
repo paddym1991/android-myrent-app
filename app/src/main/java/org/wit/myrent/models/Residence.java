@@ -12,9 +12,11 @@ public class Residence {
     public String geolocation;
     public boolean rented;
 
+
     public Residence() {
         id = unsignedLong();
         date = new Date().getTime();
+        geolocation = "52.253456,-7.187162";
     }
 
     /**

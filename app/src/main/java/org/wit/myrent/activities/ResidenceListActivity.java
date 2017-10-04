@@ -25,6 +25,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import static org.wit.android.helpers.IntentHelpers.startActivityWithData;
+import static org.wit.android.helpers.IntentHelpers.startActivityWithDataForResult;
+
+import android.view.MenuItem;
+
 import java.util.ArrayList;
 
 public class ResidenceListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener
@@ -58,9 +63,7 @@ public class ResidenceListActivity extends AppCompatActivity implements AdapterV
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Residence residence = adapter.getItem(position);
-        Intent intent = new Intent(this, ResidenceActivity.class);
-        intent.putExtra("RESIDENCE_ID", residence.id);      //residence.id represents the residence the user clicked on (by position)
-        startActivity(intent);                              //Its is obtained from the prtfolio and then passed to the intent as an 'extra' data item
+        startActivityWithData(this, ResidenceActivity.class, "RESIDENCE_ID", residence.id);
     }
 
     //Ensure changes made in ResidenceActivity are reflected in the list
@@ -77,6 +80,21 @@ public class ResidenceListActivity extends AppCompatActivity implements AdapterV
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.residencelist, menu);
         return true;
+    }
+
+    //override onOptionsItemSelected to respond to selecting the menu item to create a new residence instance
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.menu_item_new_residence: Residence residence = new Residence();
+                portfolio.addResidence(residence);
+                startActivityWithDataForResult(this, ResidenceActivity.class, "RESIDENCE_ID", residence.id, 0);
+                return true;
+
+            default: return super.onOptionsItemSelected(item);
+        }
     }
 }
 
