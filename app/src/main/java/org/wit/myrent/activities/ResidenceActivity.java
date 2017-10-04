@@ -114,4 +114,12 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
                 break;
         }
     }
+
+    //trigger a save when the user leaves the ResidenceActivity
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        portfolio.saveResidences();
+    }
 }
