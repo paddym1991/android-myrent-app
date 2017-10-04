@@ -3,6 +3,7 @@ import java.io.Serializable;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 
 public class IntentHelpers
 {
@@ -24,5 +25,12 @@ public class IntentHelpers
         Intent intent = new Intent(parent, classname);
         intent.putExtra(extraID, extraData);
         parent.startActivityForResult(intent, idForResult);
+    }
+
+    //In order to support enhanced navigation, we define an additional Helper method in the IntentHelper class
+    public static void navigateUp(Activity parent)
+    {
+        Intent upIntent = NavUtils.getParentActivityIntent(parent);
+        NavUtils.navigateUpTo(parent, upIntent);
     }
 }
