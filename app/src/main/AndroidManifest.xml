@@ -12,7 +12,11 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".activities.ResidenceActivity">
+            android:name=".activities.ResidenceActivity"
+            android:label="@string/app_name" >
+            <!--establishing a parent/child relationship between ResidenceListActivity and ResidenceActivity classes-->
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.ResidenceListActivity"/>
         </activity>
 
         <activity
