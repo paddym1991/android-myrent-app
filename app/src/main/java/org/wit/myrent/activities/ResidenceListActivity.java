@@ -13,6 +13,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -25,7 +27,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ResidenceListActivity extends Activity implements AdapterView.OnItemClickListener
+public class ResidenceListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener
 {
     private ListView listView;
     private Portfolio portfolio;
@@ -66,6 +68,15 @@ public class ResidenceListActivity extends Activity implements AdapterView.OnIte
     public void onResume() {
         super.onResume();
         adapter.notifyDataSetChanged();
+    }
+
+    //we bind the newly-created menu to the activity within which we wish the menu to appear
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.residencelist, menu);
+        return true;
     }
 }
 
