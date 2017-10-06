@@ -28,6 +28,7 @@ import android.view.View.OnClickListener;
 
 import static org.wit.android.helpers.ContactHelpers.getContact;
 import static org.wit.android.helpers.ContactHelpers.getEmail;
+import static org.wit.android.helpers.ContactHelpers.sendEmail;
 import static org.wit.android.helpers.IntentHelpers.navigateUp;
 import static org.wit.android.helpers.IntentHelpers.selectContact;
 import android.content.Intent;
@@ -42,6 +43,7 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
     private static final int REQUEST_CONTACT = 1;       //An ID we will use for the implicit Intent
     private Button   tenantButton;             //Button to trigger the intent
     private String emailAddress = "";
+    private Button   reportButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,9 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
 
         tenantButton = (Button)   findViewById(R.id.tenant);        //initialisation of tenantButton
         tenantButton.setOnClickListener(this);      //event handler set up for tenantButton
+
+        reportButton = (Button)   findViewById(R.id.residence_reportButton);        //initialisation of reportButton
+        reportButton.setOnClickListener(this);      //enabling the event handler
     }
 
     //Send the residence data to the view widgets.
@@ -118,7 +123,10 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
     }
 
 
-    //event handler
+    /**
+     * Event handler
+     * @param view
+     */
     @Override
     public void onClick(View view)
     {
@@ -131,6 +139,10 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
                 break;
             case R.id.tenant :
                 selectContact(this, REQUEST_CONTACT);       //selectContact method within IntentHelpers class
+                break;
+            case R.id.residence_reportButton :
+                sendEmail(this, emailAddress,
+                        getString(R.string.residence_report_subject), residence.getResidenceReport(this));
                 break;
         }
     }
