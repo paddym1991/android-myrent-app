@@ -25,8 +25,12 @@ import java.util.GregorianCalendar;
 import android.app.DatePickerDialog;
 import android.view.View;
 import android.view.View.OnClickListener;
-//introduce helper method for navigation
+
+import static org.wit.android.helpers.ContactHelpers.getContact;
+import static org.wit.android.helpers.ContactHelpers.getEmail;
 import static org.wit.android.helpers.IntentHelpers.navigateUp;
+import static org.wit.android.helpers.IntentHelpers.selectContact;
+import android.content.Intent;
 
 public class ResidenceActivity extends AppCompatActivity implements TextWatcher, OnCheckedChangeListener, View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
@@ -35,6 +39,9 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
     private CheckBox rented;
     private Button dateButton;
     private Portfolio portfolio;
+    private static final int REQUEST_CONTACT = 1;       //An ID we will use for the implicit Intent
+    private Button   tenantButton;             //Button to trigger the intent
+    private String emailAddress = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +75,9 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
         }
 
         dateButton.setOnClickListener(this);
+
+        tenantButton = (Button)   findViewById(R.id.tenant);        //initialisation of tenantButton
+        tenantButton.setOnClickListener(this);      //event handler set up for tenantButton
     }
 
     //Send the residence data to the view widgets.
@@ -107,6 +117,8 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
         dateButton.setText(residence.getDateString());
     }
 
+
+    //event handler
     @Override
     public void onClick(View view)
     {
@@ -116,6 +128,9 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
                 Calendar c = Calendar.getInstance();
                 DatePickerDialog dpd = new DatePickerDialog (this, this, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
                 dpd.show();
+                break;
+            case R.id.tenant :
+                selectContact(this, REQUEST_CONTACT);       //selectContact method within IntentHelpers class
                 break;
         }
     }
@@ -137,5 +152,20 @@ public class ResidenceActivity extends AppCompatActivity implements TextWatcher,
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    //To deal with selectContent method triggering a 'startActivityForResult'
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        switch (requestCode)
+        {
+            case REQUEST_CONTACT:
+                String name = getContact(this, data);
+                emailAddress = getEmail(this, data);
+                tenantButton.setText(name + " : " + emailAddress);
+                residence.tenant = name;
+                break;
+        }
     }
 }
